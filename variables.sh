@@ -16,3 +16,10 @@ msg6="The world watches, and peace is our shared responsibility."
 topic="Nuclear Diplomacy"
 greeting="--- Conversation between $person1 and $person2 ---"
 closing="--- End of Conversation ---"
+
+# Display variables
+echo "$greeting"
+echo "Topic: $topic"
+echo "Person 1: $person1"
+echo "Person 2: $person2"
+echo "$closing"
