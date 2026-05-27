@@ -14,7 +14,7 @@ fi
 Action=$1
 shift  #to remove the first argument and keep the rest as instance names
 
-if [ "$Action" != "create"] && [ "Action" != "delete"]; then
+if [ "$Action" != "create"] && [ "$Action" != "delete"]; then
     echo -e "$R Error: First argument should be either 'create' or 'delete'. $N"
     echo "$Y Usage: $0 create/delete instance_name1 instance_name2 ... $N"
     exit 1
