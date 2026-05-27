@@ -1,0 +1,33 @@
+i want to create and destroy the Instances
+I need to pass at least two arguments, in the end i want to create multiple instances at a time as well
+one arument is for creatin/delete either one only
+another argument for instance name
+
+1.first thing is i should validate whether the 2 arguments are passing or or not
+if $# lt 2 then it should say At least 2 arguments required
+
+2.for idempotency i should write my code very correct, it can be run manytimes withe same values 
+for that i should have few prerequisites
+if i want to create a instance if instance is there i should print instance already there no need to create
+
+to get instance id :     aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
+for instance in $@ 
+do
+if [action == create];then
+    if [instance == none]; then
+        then only create instance .
+    else
+        print the instance id
+    fi
+    if [instance == frontend]; then
+    print public ip 
+    else
+        print private ip
+    fi
+else
+    if instanceid ==none 
+        instance already destrayed
+    else
+        delete command will come here
+fi
+done
