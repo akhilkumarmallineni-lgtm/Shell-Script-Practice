@@ -61,6 +61,7 @@ do
         fi
     else
         if [ $INSTANCE_ID = "None" ]; then
+            INSTANCE_ID=$(get_instance_id $instance)
             echo "$instance already destroyed, nothing to do..."
         else
             aws ec2 terminate-instances --instance-ids $INSTANCE_ID
