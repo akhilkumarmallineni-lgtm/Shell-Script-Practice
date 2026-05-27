@@ -65,6 +65,8 @@ do
         else
             echo "Deleting instance: $instance with ID: $INSTANCE_ID"
             # Delete instance command here
+            aws ec2 terminate-instances \
+            --instance-ids "$INSTANCE_ID"
         fi
     fi
 done
