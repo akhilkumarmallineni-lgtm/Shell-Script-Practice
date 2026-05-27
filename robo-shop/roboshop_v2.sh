@@ -29,7 +29,7 @@ get_instance_id() {
 
 get_instance_state() {
     name=$1
-    aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" --query "Reservations[0].Instances[0].State.Name" --output text
+     aws ec2 describe-instances     --instance-ids $INSTANCE_ID     --query "Reservations[*].Instances[*].State.Name"     --output text
 }
 
 for instance in $@
