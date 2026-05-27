@@ -27,11 +27,20 @@ get_instance_id() {
     aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
 }
 
+get_instance_state() {
+    name=$1
+    aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" --query "Reservations[0].Instances[0].State.Name" --output text
+}
+
 for instance in $@
 do
     if [ "$ACTION" == "create" ];then
         INSTANCE_ID=$(get_instance_id $instance)
-        if [ $INSTANCE_ID == "None" ]; then
+        INSTANCE_STATE=$(get_instance_state $instance)
+        if [ $INSTANCE_STATE == "stopped" ]; then
+            echo "Starting instance: $instance with ID: $INSTANCE_ID"
+            aws ec2 start-instances --instance-ids $INSTANCE_ID
+        elif [ $INSTANCE_ID == "None" ]; then
             echo "Creating instance: $instance"
             INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
@@ -42,10 +51,24 @@ do
             --output text 
             )
             echo "Launched Instance: $INSTANCE_ID"
-            # Create instance command here
         else
             echo "Instance $instance already exists with ID: $INSTANCE_ID"
         fi
+        # if [ $INSTANCE_ID == "None" ]; then
+        #     echo "Creating instance: $instance"
+        #     INSTANCE_ID=$( aws ec2 run-instances \
+        #     --image-id $AMI_ID \
+        #     --instance-type t3.micro \
+        #     --security-groups "shell-robo-common" "roboshop-$instance" \
+        #     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
+        #     --query 'Instances[0].InstanceId' \
+        #     --output text 
+        #     )
+        #     echo "Launched Instance: $INSTANCE_ID"
+        #     # Create instance command here
+        # else
+        #     echo "Instance $instance already exists with ID: $INSTANCE_ID"
+        # fi
         if [ $instance == "frontend" ]; then
             IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
              --query 'Reservations[*].Instances[*].PublicIpAddress' \
