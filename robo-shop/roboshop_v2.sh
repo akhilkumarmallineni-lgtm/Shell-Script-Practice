@@ -5,7 +5,7 @@ Y="\e[33m"
 N="\e[0m"
 
 
-if [$# -lt 2]; then
+if [ $# -lt 2 ]; then
     echo -e "$R Error: At least 2 arguments should be passed. $N"
     echo "$Y Usage: $0 create/delete instance_name1 instance_name2 ... $N"
     exit 1
