@@ -37,7 +37,7 @@ do
     if [ "$ACTION" == "create" ];then
         INSTANCE_ID=$(get_instance_id $instance)
         INSTANCE_STATE=$(get_instance_state $instance)
-        if [ $INSTANCE_STATE == "stopped" ]; then
+        if [ $INSTANCE_STATE == "stopped" ] && [ $INSTANCE_ID != "None" ]; then
             echo "Starting instance: $instance with ID: $INSTANCE_ID"
             aws ec2 start-instances --instance-ids $INSTANCE_ID
         elif [ $INSTANCE_ID == "None" ]; then
