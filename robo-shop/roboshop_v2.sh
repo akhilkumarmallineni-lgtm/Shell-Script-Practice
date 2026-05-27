@@ -31,7 +31,7 @@ for instance in $@
 do
     if [ "$ACTION" == "create" ];then
         INSTANCE_ID=$(get_instance_id $instance)
-        if [ "INSTANCE_ID" == "None" ]; then
+        if [ "$INSTANCE_ID" == "None" ]; then
             echo "Creating instance: $instance"
             INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
@@ -60,7 +60,7 @@ do
             echo "Private IP for $instance: $IP"
         fi
     else
-        if [ $INSTANCE_ID == "None" ]; then
+        if [ "$INSTANCE_ID" == "None" ]; then
             echo "Instance $instance is already destroyed or does not exist."
         else
             echo "Deleting instance: $instance with ID: $INSTANCE_ID"
