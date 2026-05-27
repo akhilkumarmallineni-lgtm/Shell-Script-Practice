@@ -11,12 +11,12 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
-Action=$1
+ACTION=$1
 shift  #to remove the first argument and keep the rest as instance names
 
-if [ "$Action" != "create"] && [ "$Action" != "delete"]; then
-    echo -e "$R Error: First argument should be either 'create' or 'delete'. $N"
-    echo "$Y Usage: $0 create/delete instance_name1 instance_name2 ... $N"
+if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
+    echo -e "$R ERROR:: First argument must be either create or delete $N"
+    echo "USAGE: $0 [create/delete] [instance1] [instance2...]"
     exit 1
 fi
 
@@ -27,7 +27,7 @@ get_instance_id() {
 
 for instance in $@
 do
-    if [Action == "create"];then
+    if ["$ACTION" == "create"];then
         INSTANCE_ID=$(get_instance_id $instance)
         if [ "INSTANCE_ID" == "None"]; then
             echo "Creating instance: $instance"
