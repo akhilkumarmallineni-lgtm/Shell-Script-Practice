@@ -1,3 +1,5 @@
+#!/bin/bash
+
 AMI_ID="ami-0220d79f3f480ecf5"
 R="\e[31m"
 G="\e[32m"
