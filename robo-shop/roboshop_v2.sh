@@ -41,7 +41,7 @@ do
         if [ "$INSTANCE_STATE" == "stopped" ] && [ "$INSTANCE_ID" != "None" ]; then
             echo "Starting instance: $instance with ID: $INSTANCE_ID"
             aws ec2 start-instances --instance-ids $INSTANCE_ID
-        elif [ $INSTANCE_ID == "None" ]; then
+        elif [ "$INSTANCE_ID" == "None" ] && [ "$INSTANCE_STATE" == "terminated" ]; then
             echo "Creating instance: $instance"
             INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
