@@ -60,10 +60,10 @@ do
             echo "Private IP for $instance: $IP"
         fi
     else
-        if [ -z "$INSTANCE_ID" ]; then
+        if [ -z $INSTANCE_ID ]; then
             echo "$instance already destroyed, nothing to do..."
         else
-            aws ec2 terminate-instances --instance-ids "$INSTANCE_ID"
+            aws ec2 terminate-instances --instance-ids $INSTANCE_ID
             echo "Terminating Instance: $instance"
         fi
     fi
