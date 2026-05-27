@@ -27,7 +27,7 @@ get_instance_id() {
 
 for instance in $@
 do
-    if ["$ACTION" == "create"];then
+    if [ "$ACTION" == "create" ];then
         INSTANCE_ID=$(get_instance_id $instance)
         if [ "INSTANCE_ID" == "None"]; then
             echo "Creating instance: $instance"
