@@ -24,7 +24,7 @@ fi
 
 get_instance_id() {
     name=$1
-    aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" "Name=instance-state-name,Values=stopped,terminated" --query "Reservations[0].Instances[0].InstanceId" --output text
+    aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" "Name=instance-state-name,Values=stopped" --query "Reservations[0].Instances[0].InstanceId" --output text
 }
 
 get_instance_state() {
@@ -41,7 +41,7 @@ do
         if [ "$INSTANCE_STATE" == "stopped" ] && [ "$INSTANCE_ID" != "None" ]; then
             echo "Starting instance: $instance with ID: $INSTANCE_ID"
             aws ec2 start-instances --instance-ids $INSTANCE_ID
-        elif [ "$INSTANCE_ID" == "None" ] && [ "$INSTANCE_STATE" == "terminated" ]; then
+        elif [ $INSTANCE_ID == "None" ]; then
             echo "Creating instance: $instance"
             INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
