@@ -58,7 +58,7 @@ do
             echo "Private IP for $instance: $IP"
         fi
     else
-        if [ $INSTANCE == "None" ]; then
+        if [ $INSTANCE_ID == "None" ]; then
             echo "Instance $instance is already destroyed or does not exist."
         else
             echo "Deleting instance: $instance with ID: $INSTANCE_ID"
